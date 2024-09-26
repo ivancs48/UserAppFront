@@ -1,0 +1,115 @@
+<form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
+
+    <div>
+        <input 
+        name="name" 
+        placeholder="Name" 
+        [(ngModel)]="user.name" 
+        class="form-control my-2" 
+        #name="ngModel">
+        @if(name.invalid && (name.dirty || name.touched)) {
+            @if(name.errors!['required']) {
+                <div class="text-danger">
+                    Nombre es requerido
+                </div>
+            }
+        }
+    </div>
+    <div>
+        <input 
+        name="lastName" 
+        placeholder="Lastname" 
+        [(ngModel)]="user.lastName" 
+        class="form-control my-2" 
+        required
+        #lastname="ngModel">
+        @if(lastname.invalid && (lastname.dirty || lastname.touched)) {
+            @if(lastname.errors!['required']) {
+                <div class="text-danger">
+                    Apellido es requerido
+                </div>
+            }
+        }
+    </div>
+    <div>
+        <input 
+        name="email" 
+        placeholder="Email" 
+        [(ngModel)]="user.email" 
+        class="form-control my-2" 
+        required 
+        email
+        type="email"
+        #email="ngModel">
+        @if(email.invalid && (email.dirty || email.touched)) {
+            @if(email.errors!['required']) {
+                <div class="text-danger">
+                    Correo electronico es requerido
+                </div>
+            }
+            @if(email.errors!['email']) {
+                <div class="text-danger">
+                    el correo electronico no tiene el formato correcto
+                </div>
+            }
+        }
+    </div>
+    <div>
+        <input 
+        name="username" 
+        placeholder="Username" 
+        [(ngModel)]="user.username" 
+        class="form-control my-2" 
+        required 
+        minlength="4"
+        #username="ngModel">
+        @if(username.invalid && (username.dirty || username.touched)) {
+            @if(username.errors!['required']) {
+                <div class="text-danger">
+                    El nombre de usario es requerido
+                </div>
+            }
+            @if(username.errors!['minlength']) {
+                <div class="text-danger">
+                    El nombre de usario es muy corto
+                </div>
+            }
+        }
+    </div>
+    <div>
+        <input 
+        name="password" 
+        placeholder="Password" 
+        type="password" 
+        [(ngModel)]="user.password" 
+        class="form-control my-2" 
+        required 
+        minlength="6"
+        #password="ngModel">
+        @if(password.invalid && (password.dirty || password.touched)) {
+            @if(password.errors!['required']) {
+                <div class="text-danger">
+                    La clave es requerido
+                </div>
+            }
+            @if(username.errors!['minlength']) {
+                <div class="text-danger">
+                    La clave es muy corto
+                </div>
+            }
+        }
+    </div>
+
+    <button 
+    type="submit" 
+    class="btn btn-primary my-2" 
+    [disabled]="userForm.invalid">
+        {{(user.id > 0)? 'Update' : 'Create'}}
+    </button>
+    <button 
+    type="button" 
+    class="btn btn-secondary m-2" 
+    (click)="onClear(userForm)">
+        Clear
+    </button>
+</form>
